@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kandy Nature and Wildlife Club (KN&WC)</title>
+    <style>
+        /* Base Styling & Colors */
+        :root {
+            --primary-color: #2c5e3b; /* Deep Forest Green */
+            --secondary-color: #8b5a2b; /* Earthy Brown */
+            --light-bg: #f4f7f5;
+            --dark-text: #222;
+            --white: #ffffff;
+            --notice-accent: #d4af37; /* Gold accent for notices */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        header {
+            background-color: var(--primary-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #a3e2a4;
+        }
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: #6e4420;
+        }
+
+        /* Sections General */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 0.5rem auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* About & Ethics */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .ethics-card {
+            background-color: #e2ede5;
+            border-left: 5px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Notice Board Styling */
+        .notice-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .notice-card {
+            background-color: var(--white);
+            padding: 1.8rem;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+            border-left: 5px solid var(--notice-accent);
+            position: relative;
+        }
+
+        .notice-card h3 {
+            color: var(--primary-color);
+            font-size: 1.35rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .notice-date {
+            font-size: 0.85rem;
+            color: #777;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .notice-body {
+            font-size: 1rem;
+            color: #444;
+            white-space: pre-line; /* Keeps paragraphs and formatting neat */
+        }
+
+        .no-notices {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 2rem;
+        }
+
+        /* Grid Systems */
+        .grid-committee, .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 4px solid var(--primary-color);
+            transition: transform 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .role {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        
+        .card p {
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        .member-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .member-list li {
+            font-size: 1.05rem;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
+            color: var(--dark-text);
+        }
+
+        /* Photo Gallery Styling */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem 0;
+        }
+
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            cursor: pointer;
+            height: 220px;
+            background-color: #e0e6e2;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        /* Lightbox Modal View */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.92);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 4px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            animation: zoomIn 0.25s ease-out;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 40px;
+            color: #ffffff;
+            font-size: 45px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: color 0.2s;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #a3e2a4;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* News, Events, and Publication styling */
+        .event-tag {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        /* Join Container */
+        .join-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .instructions {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .instructions a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .instructions a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1b3a24;
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav ul li {
+                margin: 0.5rem;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2.3rem;
+            }
+            .close-btn {
+                top: 15px;
+                right: 25px;
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">KN&WC</div>
+            <nav>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#committee">Committee</a></li>
+                    <li><a href="#notices">Notice Board</a></li>
+                    <li><a href="#publications">Publications</a></li>
+                    <li><a href="#gallery">Photo Gallery</a></li>
+                    <li><a href="#news">Events & News</a></li>
+                    <li><a href="#contact">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Kandy Nature & Wildlife Club</h1>
+            <p>Exploring, documenting, and protecting the rich biodiversity of Sri Lanka through ethical observation and community conservation.</p>
+            <a href="#contact" class="btn">Become a Member</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">Who We Are</h2>
+        <div class="about-grid">
+            <div>
+                <p>Based in the scenic hills of Kandy, the Kandy Nature and Wildlife Club (KN&WC) brings together passionate environmentalists, researchers, and wildlife photographers. Our mission is to study and safeguard our island's unique ecosystems, with a special emphasis on documenting the behavior and breeding cycles of Sri Lanka's spectacular endemic avifauana.</p>
+                <br>
+                <p>We actively engage the public and our community through regular field excursions, educational newsletters, and citizen science initiatives that track local wildlife trends.</p>
+            </div>
+            <div>
+                <div class="ethics-card">
+                    <h3>Our Ethical Commitment</h3>
+                    <p><strong>Conservation-Led Photography:</strong> We firmly believe that the welfare of the subject always supersedes the photograph. Our members strictly adhere to ethical, non-interference policies—ensuring bird nests, breeding pairs, and vulnerable fledglings are never disturbed, crowded, or compromised for the sake of an image.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="committee" style="background-color: #edf2ee;">
+        <h2 class="section-title">Club Leadership</h2>
+        <div class="grid-committee">
+            <div class="card">
+                <h3>Emeritus Professor K.B. Ranawana</h3>
+                <div class="role">President</div>
+                <p>Guiding the scientific direction, conservation focus, and academic partnerships of the club.</p>
+            </div>
+            <div class="card">
+                <h3>Dr. Dhanushka S. Weerasekara (PhD)</h3>
+                <div class="role">Vice President</div>
+                <p>Assisting leadership in organizing scientific ventures, club administration, and long-term wildlife strategies.</p>
+            </div>
+            <div class="card">
+                <h3>Saliya Ambegoda</h3>
+                <div class="role">Secretary</div>
+                <p>Managing outreach, administrative logs, and coordinating wildlife documentation projects.</p>
+            </div>
+            <div class="card">
+                <h3>Dr. Chamath Chandrasekara (BAMS)</h3>
+                <div class="role">Assist. Secretary</div>
+                <p>Supporting administrative logs, communications, and coordinating local member meetups.</p>
+            </div>
+            <div class="card">
+                <h3>Gajanatha Kobbekaduwe</h3>
+                <div class="role">Treasurer</div>
+                <p>Oversight of club finances, membership dues, and funding for conservation projects.</p>
+            </div>
+            <div class="card">
+                <h3>Committee Members</h3>
+                <div class="role">Executive Committee</div>
+                <ul class="member-list">
+                    <li>Nissanka Perera</li>
+                    <li>Prasanna Abeykoon</li>
+                    <li>Dr. Chaminda Wijesundara (PhD)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="notices">
+        <h2 class="section-title">Notice Board</h2>
+        <div class="notice-container" id="noticeBoardContainer">
+            <div class="no-notices">Loading latest notices...</div>
+        </div>
+    </section>
+
+    <section id="publications" style="background-color: #edf2ee;">
+        <h2 class="section-title">Our Publications</h2>
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div class="card" style="text-align: center; padding: 3rem 2rem;">
+                <h3>The Kandy Naturalist</h3>
+                <div class="role">Issue 01</div>
+                <p style="margin-bottom: 2rem; font-size: 1rem;">Dive deep into our inaugural issue featuring comprehensive tracking logs, environment essays, and stunning ethical wildlife photography collected directly from the Kandy hills and across Sri Lanka.</p>
+                <a href="https://dn711403.ca.archive.org/0/items/the-kandy-naturalist-issue-01/TheKandyNaturalist_issue_01.pdf" target="_blank" class="btn">Read & Download Publication</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 class="section-title">Photo Gallery</h2>
+        <div class="gallery-grid" id="galleryGrid">
+            </div>
+    </section>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <img id="lightboxImg" src="" alt="Enlarged Wildlife Image">
+    </div>
+
+    <section id="news" style="background-color: #edf2ee;">
+        <h2 class="section-title">Activities & Updates</h2>
+        <div class="grid-3">
+            <div class="card" style="text-align: left;">
+                <span class="event-tag">Field Trek</span>
+                <h3>Pekoe Trail Expedition</h3>
+                <p class="role">Completed: April 2026</p>
+                <p>Club members successfully completed an immersive trek along Stage 1 of the famous Pekoe Trail, documenting distinct highland avian behaviors and local flora along the way.</p>
+            </div>
+            <div class="card" style="text-align: left;">
+                <span class="event-tag">Research</span>
+                <h3>Avian Breeding Logs</h3>
+                <p class="role">Ongoing Project</p>
+                <p>Our members are currently conducting close, zero-disturbance observation tracking of multi-cycle garden nesting behaviors to study local fledgling success rates.</p>
+            </div>
+            <div class="card" style="text-align: left;">
+                <span class="event-tag">Announcements</span>
+                <h3>Club Newsletter</h3>
+                <p class="role">Call for Submissions</p>
+                <p>We invite all researchers, wildlife enthusiasts, nature lovers, conservationists, and photographers to contribute to our upcoming newsletter. Submit your field notes, high-resolution wildlife photographs, conservation articles, observations, and nature stories for publication. Please send your contributions to: k.n.and.w.c@gmail.com</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Get Involved</h2>
+        <div class="join-container">
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem; color: #444;">Join our community of passionate wildlife and conservation enthusiasts. Download the application below to get started.</p>
+            
+            <a href="https://ia903107.us.archive.org/31/items/membershipapplicationform_202606/membershipApplicationForm.pdf" target="_blank" class="btn" style="padding: 1rem 2.5rem; font-size: 1.1rem;">
+                Download Membership Application Form
+            </a>
+            
+            <div class="instructions">
+                <p>Please fill the form and email it to <a href="mailto:k.n.and.w.c@gmail.com">k.n.and.w.c@gmail.com</a></p>
+                <p style="margin-top: 0.5rem; font-weight: 500; color: #555;">or</p>
+                <p style="margin-top: 0.5rem;">WhatsApp it to <strong>+94760793322</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Kandy Nature and Wildlife Club (KN&WC). Dedicated to Conservation & Ethical Wildlife Photography.</p>
+    </footer>
+
+    <script>
+        const noticeContainer = document.getElementById('noticeBoardContainer');
+
+        // Fetch and process the notices.txt file
+        fetch('notices.txt')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Notice file not found or empty.");
+                }
+                return response.text();
+            })
+            .then(text => {
+                // Clear out loading text
+                noticeContainer.innerHTML = '';
+
+                // Split text by the '---' line separator
+                const noticesArray = text.split('---');
+                let validNoticesCount = 0;
+
+                noticesArray.forEach(noticeRaw => {
+                    // Split content into lines and clean up whitespace spaces
+                    const lines = noticeRaw.split('\n').map(line => line.trim()).filter(line => line !== '');
+                    
+                    if (lines.length >= 2) {
+                        validNoticesCount++;
+
+                        const title = lines[0];
+                        const date = lines[1];
+                        // Combine remaining lines back together as the main message body
+                        const bodyContent = lines.slice(2).join('\n');
+
+                        // Build notice elements structurally
+                        const card = document.createElement('div');
+                        card.className = 'notice-card';
+
+                        const titleEl = document.createElement('h3');
+                        titleEl.textContent = title;
+
+                        const dateEl = document.createElement('div');
+                        dateEl.className = 'notice-date';
+                        dateEl.textContent = date;
+
+                        const bodyEl = document.createElement('div');
+                        bodyEl.className = 'notice-body';
+                        bodyEl.textContent = bodyContent;
+
+                        card.appendChild(titleEl);
+                        card.appendChild(dateEl);
+                        card.appendChild(bodyEl);
+                        noticeContainer.appendChild(card);
+                    }
+                });
+
+                if (validNoticesCount === 0) {
+                    noticeContainer.innerHTML = '<div class="no-notices">No current notices posted. Check back later!</div>';
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                noticeContainer.innerHTML = '<div class="no-notices">No current notices posted. Check back later!</div>';
+            });
+    </script>
+
+    <script>
+        const folderPath = 'images/';
+        const galleryGrid = document.getElementById('galleryGrid');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+
+        let imageIndex = 1;
+
+        function loadNextImage() {
+            const imageSrc = `${folderPath}${imageIndex}.jpg`;
+            const imgTest = new Image();
+            
+            imgTest.onload = function() {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                
+                const img = document.createElement('img');
+                img.src = imageSrc;
+                img.alt = "Wildlife Observation Photo";
+                img.loading = "lazy";
+
+                item.onclick = () => openLightbox(imageSrc);
+                item.appendChild(img);
+                galleryGrid.appendChild(item);
+
+                imageIndex++;
+                loadNextImage();
+            };
+
+            imgTest.onerror = function() {
+                console.log(`Gallery scan finished. Rendered ${imageIndex - 1} images.`);
+            };
+
+            imgTest.src = imageSrc;
+        }
+
+        loadNextImage();
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            lightboxImg.src = '';
+        }
+    </script>
+</body>
+</html>
